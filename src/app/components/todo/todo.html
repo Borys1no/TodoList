@@ -1,0 +1,26 @@
+<h2>Lista de Tareas</h2>
+<input [(ngModel)]="nuevaTarea" placeholder="Escibe una nueva tarea"/>
+<button (click)="agregarTarea()">Agregar</button>
+
+<ul>
+    @for (tarea of tareas; track tarea; let i = $index) {
+        <li>
+            <input type="checkbox"[checked]="tarea.completada" (change)="toggleCompletada(tarea)"/>
+
+            @if (editandoTareaIndex === i){
+                <input [(ngModel)]="tareaEditada">
+                <button (click)="guardarEdicion()">Guardar</button>
+                <button (click)="cancelarEdicion()">Cancelar</button>
+            } @else {
+                <span [ngStyle]="{'text-decoration':tarea.completada ? 'line-through':'none'}">
+                    {{tarea.texto}}
+                </span>
+            }
+            <button (click)="editarTarea(i)">Editar</button>
+            <button (click)="eliminarTarea(i)" >X</button>
+            
+        </li>
+
+    }
+    
+</ul>
